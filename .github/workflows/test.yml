@@ -15,11 +15,10 @@ jobs:
         browser:
           - chromium
           - firefox
+          - webkit
         include:
           - os: windows-latest
             browser: msedge
-          - os: macos-latest
-            browser: webkit
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -38,3 +37,6 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: npx playwright install ${{ matrix.browser }}
       - run: npx playwright test --project=${{ matrix.browser }}
+      - uses: actions/upload-artifact@v3
+        with:
+          path: example.png
