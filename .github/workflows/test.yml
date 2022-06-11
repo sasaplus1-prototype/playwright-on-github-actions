@@ -1,0 +1,37 @@
+name: playwright
+
+on:
+  - push
+
+jobs:
+  playwright:
+    strategy:
+      matrix:
+        includes:
+          - { runner: windows-latest, browser: chromium }
+          - { runner: windows-latest, browser: firefox  }
+          - { runner: windows-latest, browser: msedge   }
+          - { runner: macos-latest, browser: chromium }
+          - { runner: macos-latest, browser: firefox  }
+          - { runner: macos-latest, browser: safari   }
+          - { runner: ubuntu-latest, browser: chromium }
+          - { runner: ubuntu-latest, browser: firefox  }
+          - { runner: ubuntu-latest, browser: safari   }
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-${{ matrix.browser }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.browser }}-yarn-
+      - run: npm install -g yarn
+      - run: yarn install --frozen-lockfile
+      - run: npx playwright install ${{ matrix.browser }}
+      - run: npx playwright test --project=${{ matrix.browser }}
