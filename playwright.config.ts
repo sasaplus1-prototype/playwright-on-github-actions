@@ -14,17 +14,18 @@ const config: PlaywrightTestConfig = {
       use: { ...devices['Desktop Chrome'] },
     },
     {
+      name: 'msedge'
+      use: { ...devices['Desktop Edge'] },
+    },
+    {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    }
   ],
 };
-
-if (os.platform() === 'darwin') {
-  config.projects.push({
-    name: 'webkit',
-    use: { ...devices['Desktop Safari'] },
-  });
-}
 
 export default config;
