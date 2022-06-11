@@ -17,8 +17,14 @@ jobs:
           - firefox
           - msedge
           - webkit
+        # fail combinations
         exclude:
+          # is edge died?
           - os: windows-latest
+            browser: msedge
+          - os: macos-latest
+            browser: msedge
+          - os: ubuntu-latest
             browser: msedge
           - os: ubuntu-latest
             browser: webkit
