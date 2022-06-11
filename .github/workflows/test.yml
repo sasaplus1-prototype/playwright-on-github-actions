@@ -13,10 +13,11 @@ jobs:
           - macos-latest
           - ubuntu-latest
         browser:
+          - chrome
           - chromium
           - firefox
           - msedge
-          - safari
+          - webkit
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
