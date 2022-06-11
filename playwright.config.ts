@@ -14,7 +14,7 @@ const config: PlaywrightTestConfig = {
       use: { ...devices['Desktop Chrome'] },
     },
     {
-      name: 'msedge'
+      name: 'msedge',
       use: { ...devices['Desktop Edge'] },
     },
     {
