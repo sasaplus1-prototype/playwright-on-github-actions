@@ -15,8 +15,11 @@ jobs:
         browser:
           - chromium
           - firefox
-          - msedge
-          - webkit
+        include:
+          - os: windows-latest
+            browser: msedge
+          - os: macos-latest
+            browser: webkit
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
